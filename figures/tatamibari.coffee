@@ -63,55 +63,90 @@ is2x2 = ->
   null
 
 specials = [
+  target: /clause-[01]/
   i: 5
-  j: 21 # wide
+  j: 21
 ,
+  target: /clause-wide-[01]/
   i: 5
-  j: 25 # not wide
+  j: 25
 ,
+  target: /clause-[01]/
   i: 9
-  j: 15 # not wide
+  j: 15
 ,
+  target: /clause-wide-[01]/
   i: 9
-  j: 17 # wide
+  j: 17
 ,
+  target: /clause/ # both
   i: 13
-  j: 9 # both
+  j: 9
 ,
+  target: /clause/
   i: 19
   j: 4
   color: colors.yellow
-  marked: 1
+  column: true
 ,
+  target: /clause/
   i: 19
   j: 9
   color: colors.yellow
-  marked: 1
+  column: true
 ,
+  target: /clause-[01]/
   i: 19
   j: 10
   color: colors.yellow
-  marked: 1
+  column: true
 ,
+  target: /clause-[01]/
   i: 19
   j: 15
   color: colors.yellow
-  marked: 1
+  column: true
 ,
+  target: /clause-[01]/
   i: 19
   j: 16
   color: colors.yellow
-  marked: 1
+  column: true
 ,
+  target: /clause-[01]/
   i: 19
   j: 21
   color: colors.yellow
-  marked: 1
+  column: true
+,
+  target: /clause-wide-[01]/
+  i: 19
+  j: 20
+  color: colors.yellow
+  column: true
+,
+  target: /clause-wide-[01]/
+  i: 19
+  j: 12
+  color: colors.yellow
+  column: true
+,
+  target: /clause-wide-[01]/
+  i: 19
+  j: 25
+  color: colors.yellow
+  column: true
+,
+  target: /clause-wide-[01]/
+  i: 19
+  j: 17
+  color: colors.yellow
+  column: true
 ]
 
 isSpecial = ->
-  for special in specials
-    if @i == special.i
+  for special in specials when special.target.test @filename
+    if not special.column and @i == special.i
       row = @row()
       if special.j of row and parse(row[special.j].key).symbol == '-'
         good = true
@@ -121,7 +156,7 @@ isSpecial = ->
             break
         if good
           return special.color ? colors.special
-    if special.marked == 1 and @j == special.j
+    if special.column and @j == special.j
         column = @column()
         if special.i of column and parse(column[special.i].key).symbol == '|'
           good = true
