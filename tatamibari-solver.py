@@ -160,8 +160,8 @@ def solve(puzzle: Puzzle, forced_rects: Set[Rect] = frozenset(),
                                 solver.add_soft(z3.PbLe([(r2, 1), (r3, 1), (r4, 1)], 2), 1, 'corner')
                             else:
                                 raise AssertionError('bad corner_constraints: ' + corner_constraints)
-                for r2 in ll_to_rects.get(Point(c.r-1, c.c), []):
-                    for r3 in lr_to_rects.get(Point(c.r-1, c.c+1), []):
+                for r2 in lr_to_rects.get(Point(c.r-1, c.c), []):
+                    for r3 in ll_to_rects.get(Point(c.r-1, c.c+1), []):
                         for r4 in ul_to_rects.get(Point(c.r, c.c+1), []):
                             if corner_constraints == 'hard':
                                 solver.add(z3.PbLe([(r2, 1), (r3, 1), (r4, 1)], 2))
@@ -169,8 +169,8 @@ def solve(puzzle: Puzzle, forced_rects: Set[Rect] = frozenset(),
                                 solver.add_soft(z3.PbLe([(r2, 1), (r3, 1), (r4, 1)], 2), 1, 'corner')
                             else:
                                 raise AssertionError('bad corner_constraints: ' + corner_constraints)
-                for r2 in ll_to_rects.get(Point(c.r-1, c.c-1), []):
-                    for r3 in lr_to_rects.get(Point(c.r-1, c.c), []):
+                for r2 in lr_to_rects.get(Point(c.r-1, c.c-1), []):
+                    for r3 in ll_to_rects.get(Point(c.r-1, c.c), []):
                         for r4 in ur_to_rects.get(Point(c.r, c.c-1), []):
                             if corner_constraints == 'hard':
                                 solver.add(z3.PbLe([(r2, 1), (r3, 1), (r4, 1)], 2))
